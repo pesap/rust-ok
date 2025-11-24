@@ -100,4 +100,4 @@ jobs:
             source pkgtest/bin/activate
             python -m pip install --upgrade pip
             python -m pip install dist/*.whl
-            python -c "import r2x_sienna as m; print(getattr(m, '__version__', 'OK'))"
+            python -c "import rust_ok as m; print(getattr(m, '__version__', 'OK'))"
