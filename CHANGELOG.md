@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/pesap/rust-ok/compare/v0.1.0...v0.2.0) (2025-12-17)
+
+
+### Features
+
+* Adding correct actions and type guard ([#8](https://github.com/pesap/rust-ok/issues/8)) ([b2c9aa2](https://github.com/pesap/rust-ok/commit/b2c9aa2266c810887c8baebef1126b4aeb8ce822))
+
 ## [0.1.0](https://github.com/pesap/rust-ok/compare/v0.0.1...v0.1.0) (2025-11-24)
 
 
