@@ -6,7 +6,7 @@ github_actions:
   - changed-files:
       - any-glob-to-any-file: ".github/**"
 
-markdown:
+docs:
   - changed-files:
       - any-glob-to-any-file: "**/*.md"
 

@@ -16,7 +16,7 @@ keywords = [
     "typing",
 ]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: BSD License",
     "Natural Language :: English",
@@ -29,23 +29,71 @@ classifiers = [
 ]
 dependencies = []
 
+[build-system]
+requires = ["uv_build>=0.9.10,<0.10.0"]
+build-backend = "uv_build"
+
 [dependency-groups]
 dev = [
-    "mypy>=1.18.2",
     "pre-commit>=4.5.0,<5.0.0",
     "pytest>=8.3.0,<9.0.0",
     "pytest-cov>=5.0.0,<6.0.0",
     "ruff>=0.6.8,<0.7.0",
+    "ty>=0.0.2",
 ]
+
+[tool.ruff]
+line-length = 110
+extend-exclude = [
+    ".venv",
+    "venv",
+    "build",
+    "dist",
+    "*.egg-info",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "F",      # pyflakes
+    "I",      # isort
+    "N",      # pep8-naming
+    "UP",     # pyupgrade
+    "B",      # flake8-bugbear
+    "C4",     # flake8-comprehensions
+    "SIM",    # flake8-simplify
+    "PIE",    # flake8-pie
+    "PERF",   # perflint (performance)
+    "RUF",    # ruff-specific rules
+]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
 testpaths = ["tests"]
 addopts = [
     "--cov=rust_ok",
-    "--cov-report=term-missing",
+    "--cov-report=term-missing:skip-covered",
+    "--cov-report=html",
+    "--cov-report=json",
+    "-v",
 ]
 
-[build-system]
-requires = ["uv_build>=0.9.10,<0.10.0"]
-build-backend = "uv_build"
+
+[tool.coverage.run]
+source = ["src/rust_ok"]
+omit = [
+  "*/tests/*",
+  "*/__pycache__/*",
+  "*/site-packages/*",
+]
+
+[tool.coverage.report]
+precision = 2
+fail_under = 99
+
+[tool.coverage.html]
+directory = "htmlcov"

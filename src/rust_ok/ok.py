@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Callable, Literal, Optional, TypeVar, cast, overload
+from collections.abc import Callable
+from typing import Any, Literal, TypeVar, cast, overload
 
 from .exceptions import IsNotError, UnwrapError
 from .result import Result
@@ -22,12 +23,15 @@ class Ok(Result[T, E]):
     value: T
 
     @overload
-    def __init__(self: "Ok[None, E]", value: Literal[None] = None) -> None: ...
+    def __init__(self: Ok[Any, Any]) -> None: ...
 
     @overload
-    def __init__(self: "Ok[T, E]", value: T) -> None: ...
+    def __init__(self: Ok[None, E], value: Literal[None]) -> None: ...
 
-    def __init__(self, value: Optional[T] = None) -> None:
+    @overload
+    def __init__(self: Ok[T, E], value: T) -> None: ...
+
+    def __init__(self, value: T | None = None) -> None:
         self.value = cast(T, value)
 
     def __repr__(self) -> str:
@@ -72,13 +76,13 @@ class Ok(Result[T, E]):
         return Ok(func(self.value))
 
     def map_err(self, func: Callable[[E], F]) -> Result[T, F]:
-        return Ok(self.value)
+        return cast(Result[T, F], Ok(self.value))
 
     def and_then(self, func: Callable[[T], Result[U, E]]) -> Result[U, E]:
         return func(self.value)
 
     def or_else(self, func: Callable[[E], Result[T, F]]) -> Result[T, F]:
-        return Ok(self.value)
+        return cast(Result[T, F], Ok(self.value))
 
     def ok(self) -> T:
         return self.value
