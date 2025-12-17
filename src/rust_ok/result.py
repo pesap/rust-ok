@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Callable, Generic, Optional, TypeVar
+from collections.abc import Callable
+from typing import Generic, TypeVar
 
 T = TypeVar("T")
 E = TypeVar("E")
@@ -79,7 +80,7 @@ class Result(Generic[T, E]):
     def unwrap_or_raise(
         self,
         exc_type: type[BaseException] = Exception,
-        context: Optional[str] = None,
+        context: str | None = None,
     ) -> T:
         """Return the Ok value or raise `exc_type`."""
         raise NotImplementedError  # pragma: no cover

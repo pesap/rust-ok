@@ -7,9 +7,9 @@ from rust_ok import (
     Result,
     UnwrapError,
     format_exception_chain,
-    iter_causes,
     is_err,
     is_ok,
+    iter_causes,
 )
 
 
@@ -291,6 +291,8 @@ def test_pattern_matching_with_guard():
                 return "small success"
             case Err(error):
                 return f"error: {error}"
+            case _:
+                return "unknown"
 
     assert classify_result(Ok(100)) == "big success"
     assert classify_result(Ok(5)) == "small success"
@@ -428,7 +430,7 @@ def test_result_map_ok():
     result = Ok(5)
     mapped = result.map(lambda x: x * 2)
 
-    assert mapped.is_ok()
+    assert isinstance(mapped, Ok)
     assert mapped.value == 10
 
 
@@ -637,8 +639,8 @@ def test_iter_causes_tracks_cause_and_context():
     try:
         try:
             raise ValueError("inner")
-        except ValueError:
-            raise RuntimeError("outer")
+        except ValueError as inner:
+            raise RuntimeError("outer") from inner
     except RuntimeError as exc:
         chain = list(iter_causes(exc))
     assert len(chain) == 2

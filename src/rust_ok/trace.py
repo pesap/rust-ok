@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterator
 from io import StringIO
-from typing import Iterator
 
 
 def iter_causes(exc: BaseException) -> Iterator[BaseException]:

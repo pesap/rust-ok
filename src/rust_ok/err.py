@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Callable, Optional, TypeVar
+from collections.abc import Callable
+from typing import Any, TypeVar, cast, overload
 
 from .exceptions import UnwrapError
 from .result import Result
@@ -19,8 +20,14 @@ class Err(Result[T, E]):
     __slots__ = ("_error_value",)
     __match_args__ = ("error",)
 
-    def __init__(self, error: E) -> None:
-        self._error_value = error
+    @overload
+    def __init__(self: Err[T, E], error: E) -> None: ...
+
+    @overload
+    def __init__(self: Err[T, Any], error: Any) -> None: ...
+
+    def __init__(self, error: E | Any) -> None:
+        self._error_value = cast(E, error)
 
     def __repr__(self) -> str:
         return f"Err({self._error_value!r})"
@@ -81,7 +88,7 @@ class Err(Result[T, E]):
     def unwrap_or_raise(
         self,
         exc_type: type[BaseException] = Exception,
-        context: Optional[str] = None,
+        context: str | None = None,
     ) -> T:
         payload = self._error_value
         msg = context if context is not None else str(payload)

@@ -1,9 +1,13 @@
 """Public API for rust-ok."""
 
-from .exceptions import IsNotError, RustOkError, UnwrapError
+from importlib.metadata import version
+
+__version__ = version("rust_ok")
+
 from .err import Err
-from .ok import Ok
+from .exceptions import IsNotError, RustOkError, UnwrapError
 from .guards import is_err, is_ok
+from .ok import Ok
 from .result import Result
 from .trace import format_exception_chain, iter_causes
 
@@ -18,4 +22,5 @@ __all__ = [
     "iter_causes",
     "is_err",
     "is_ok",
+    "__version__",
 ]
