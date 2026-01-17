@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.2](https://github.com/pesap/rust-ok/compare/v0.2.1...v0.2.2) (2026-01-17)
+
+
+### 🧩 CI
+
+* Fixing CI for removing commit to branch ([#14](https://github.com/pesap/rust-ok/issues/14)) ([4115695](https://github.com/pesap/rust-ok/commit/4115695567bfecc4e08b8a848daad6dbcf5b6647))
+
 ## [0.2.1](https://github.com/pesap/rust-ok/compare/v0.2.0...v0.2.1) (2026-01-16)
 
 
