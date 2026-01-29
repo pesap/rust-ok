@@ -667,6 +667,7 @@ def test_err_preserves_traceback_from_except_block():
     except ValueError as e:
         result = Err(e)
 
+    assert result.__traceback__ is not None
     assert result.unwrap_err().__traceback__ is not None
 
 
