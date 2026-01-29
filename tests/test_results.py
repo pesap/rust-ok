@@ -658,3 +658,73 @@ def test_format_exception_chain_includes_each_level():
         formatted = format_exception_chain(exc)
     assert "RuntimeError: outer" in formatted
     assert "ValueError: boom" in formatted
+
+
+def test_err_preserves_traceback_from_except_block():
+    """Err(e) inside an except block preserves the traceback."""
+    try:
+        raise ValueError("original")
+    except ValueError as e:
+        result = Err(e)
+
+    assert result.unwrap_err().__traceback__ is not None
+
+
+def test_unwrap_chains_exception_when_error_is_baseexception():
+    """unwrap() chains the original exception via __cause__."""
+    inner = ValueError("inner error")
+    result = Err(inner)
+
+    with pytest.raises(UnwrapError) as exc_info:
+        result.unwrap()
+
+    assert exc_info.value.__cause__ is inner
+
+
+def test_expect_chains_exception_when_error_is_baseexception():
+    """expect() chains the original exception via __cause__."""
+    inner = RuntimeError("runtime fail")
+    result = Err(inner)
+
+    with pytest.raises(UnwrapError) as exc_info:
+        result.expect("custom msg")
+
+    assert exc_info.value.__cause__ is inner
+    assert "custom msg" in str(exc_info.value)
+
+
+def test_unwrap_no_chaining_for_non_exception_error():
+    """unwrap() does not chain when error is not a BaseException."""
+    result = Err("just a string")
+
+    with pytest.raises(UnwrapError) as exc_info:
+        result.unwrap()
+
+    assert exc_info.value.__cause__ is None
+
+
+def test_format_error_with_exception():
+    """format_error() returns formatted traceback for exception errors."""
+    try:
+        try:
+            raise ValueError("deep")
+        except ValueError as inner:
+            raise RuntimeError("surface") from inner
+    except RuntimeError as exc:
+        result = Err(exc)
+
+    formatted = result.format_error()
+    assert "RuntimeError: surface" in formatted
+    assert "ValueError: deep" in formatted
+
+
+def test_format_error_with_string():
+    """format_error() returns str() for non-exception errors."""
+    result = Err("simple error")
+    assert result.format_error() == "simple error"
+
+
+def test_format_error_ok_returns_empty():
+    """Ok.format_error() returns empty string."""
+    result = Ok(42)
+    assert result.format_error() == ""
