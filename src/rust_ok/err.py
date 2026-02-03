@@ -47,7 +47,10 @@ class Err(Result[T_co, E_co]):
         return False
 
     def unwrap(self) -> T_co:
-        raise UnwrapError(f"Called unwrap on Err: {self._error_value}")
+        err = UnwrapError(f"Called unwrap on Err: {self._error_value}")
+        if isinstance(self._error_value, BaseException):
+            raise err from self._error_value
+        raise err
 
     def unwrap_err(self) -> E_co:
         return self._error_value
@@ -59,7 +62,10 @@ class Err(Result[T_co, E_co]):
         return func(self._error_value)
 
     def expect(self, msg: str) -> T_co:
-        raise UnwrapError(f"{msg}: {self._error_value}")
+        err = UnwrapError(f"{msg}: {self._error_value}")
+        if isinstance(self._error_value, BaseException):
+            raise err from self._error_value
+        raise err
 
     def is_ok(self) -> bool:
         return False
@@ -86,6 +92,13 @@ class Err(Result[T_co, E_co]):
 
     def err(self) -> E_co:
         return self._error_value
+
+    def format_error(self) -> str:
+        from .trace import format_exception_chain
+
+        if isinstance(self._error_value, BaseException):
+            return format_exception_chain(self._error_value)
+        return str(self._error_value)
 
     def unwrap_or_raise(
         self,

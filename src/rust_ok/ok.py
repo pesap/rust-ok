@@ -93,6 +93,9 @@ class Ok(Result[T_co, E_co]):
     def err(self) -> E_co:
         raise IsNotError
 
+    def format_error(self) -> str:
+        return ""
+
     def unwrap_or_raise(
         self,
         exc_type: type[BaseException] = Exception,

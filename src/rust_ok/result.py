@@ -79,6 +79,10 @@ class Result(Generic[T_co, E_co]):
         """Return the error value if Err, otherwise None."""
         return self.err()
 
+    def format_error(self) -> str:
+        """Return a formatted string of the error, including traceback if available."""
+        raise NotImplementedError  # pragma: no cover
+
     def unwrap_or_raise(
         self,
         exc_type: type[BaseException] = Exception,
