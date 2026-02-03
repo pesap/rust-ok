@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.3.0](https://github.com/pesap/rust-ok/compare/v0.2.2...v0.3.0) (2026-02-03)
+
+
+### 🚀 Features
+
+* Adding traceback propagation ([#16](https://github.com/pesap/rust-ok/issues/16)) ([3a63442](https://github.com/pesap/rust-ok/commit/3a63442232e499e18909bf62e185bdbda9c82b10))
+
+
+### 📦 Build
+
+* **deps-dev:** Bump pytest from 8.4.2 to 9.0.2 ([#11](https://github.com/pesap/rust-ok/issues/11)) ([b838d58](https://github.com/pesap/rust-ok/commit/b838d586438861a45558ffb3627556b84601c346))
+* **deps-dev:** Bump ruff from 0.6.9 to 0.14.10 ([#10](https://github.com/pesap/rust-ok/issues/10)) ([e82484c](https://github.com/pesap/rust-ok/commit/e82484c6ff0495ac5e34bf85a1dfeada4fa57910))
+
 ## [0.2.2](https://github.com/pesap/rust-ok/compare/v0.2.1...v0.2.2) (2026-01-17)
 
 
