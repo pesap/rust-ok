@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.2.2](https://github.com/pesap/rust-ok/compare/v0.2.1...v0.2.2) (2026-01-17)
+
+
+### 🧩 CI
+
+* Fixing CI for removing commit to branch ([#14](https://github.com/pesap/rust-ok/issues/14)) ([4115695](https://github.com/pesap/rust-ok/commit/4115695567bfecc4e08b8a848daad6dbcf5b6647))
+
+## [0.2.1](https://github.com/pesap/rust-ok/compare/v0.2.0...v0.2.1) (2026-01-16)
+
+
+### 🐛 Bug Fixes
+
+* enabling type checkers to detect covariant results ([#12](https://github.com/pesap/rust-ok/issues/12)) ([197e032](https://github.com/pesap/rust-ok/commit/197e0322bea2922182f8b03e8bea25615eb96f4d))
+
+
+### 📦 Build
+
+* **deps:** Bump actions/download-artifact from 6 to 7 ([#7](https://github.com/pesap/rust-ok/issues/7)) ([1eb7e86](https://github.com/pesap/rust-ok/commit/1eb7e86fddd280c5192497db273b57cfe1232717))
+* **deps:** Bump actions/upload-artifact from 5 to 6 ([#6](https://github.com/pesap/rust-ok/issues/6)) ([c68bf1a](https://github.com/pesap/rust-ok/commit/c68bf1add027820497e14dbee5002b173b1d498a))
+
 ## [0.2.0](https://github.com/pesap/rust-ok/compare/v0.1.0...v0.2.0) (2025-12-17)
 
 
