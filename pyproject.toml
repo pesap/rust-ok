@@ -1,6 +1,6 @@
 [project]
 name = "rust-ok"
-version = "0.2.2"
+version = "0.3.0"
 description = "Rust-inspired Result/Ok/Err primitives for Python"
 readme = "README.md"
 authors = [
