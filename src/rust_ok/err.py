@@ -27,12 +27,6 @@ class Err(Result[T_co, E_co]):
     def __init__(self: Err[Any, Any], error: Any) -> None: ...
 
     def __init__(self, error: E_co | Any) -> None:
-        if isinstance(error, BaseException) and error.__traceback__ is None:
-            import sys
-
-            _, exc_val, exc_tb = sys.exc_info()
-            if exc_tb is not None and error is exc_val:
-                error.__traceback__ = exc_tb
         self._error_value = error
 
     def __repr__(self) -> str:
